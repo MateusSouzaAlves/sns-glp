@@ -1,0 +1,156 @@
+diff --git a/bsnes/gb/Core/debugger.c b/bsnes/gb/Core/debugger.c
+index 2a003e720..c39cd2d38 100644
+--- a/bsnes/gb/Core/debugger.c
++++ b/bsnes/gb/Core/debugger.c
+@@ -2811,7 +2811,7 @@ bool GB_debugger_evaluate(GB_gameboy_t *gb, const char *string, uint16_t *result
+ }
+ 
+ #ifndef GB_DISABLE_CHEAT_SEARCH
+-internal bool GB_debugger_evaluate_cheat_filter(GB_gameboy_t *gb, const char *string, bool *result, uint16_t old, uint16_t new)
++internal bool GB_debugger_evaluate_cheat_filter(GB_gameboy_t *gb, const char *string, bool *result, uint16_t old, uint16_t newValue)
+ {
+     GB_ASSERT_NOT_RUNNING_OTHER_THREAD(gb)
+     
+@@ -2819,7 +2819,7 @@ internal bool GB_debugger_evaluate_cheat_filter(GB_gameboy_t *gb, const char *st
+     evaluate_conf_t conf = {
+         .old_as_value = true,
+         .old_value = old,
+-        .new_value = new,
++        .new_value = newValue,
+     };
+     value_t value = debugger_evaluate(gb, string, strlen(string), &error, &conf);
+     if (result) {
+diff --git a/bsnes/gb/Core/debugger.h b/bsnes/gb/Core/debugger.h
+index 16ab4239a..a8c78a243 100644
+--- a/bsnes/gb/Core/debugger.h
++++ b/bsnes/gb/Core/debugger.h
+@@ -38,7 +38,7 @@ internal void GB_debugger_test_read_watchpoint(GB_gameboy_t *gb, uint16_t addr);
+ internal const GB_bank_symbol_t *GB_debugger_find_symbol(GB_gameboy_t *gb, uint16_t addr, bool prefer_local);
+ internal void GB_debugger_add_symbol(GB_gameboy_t *gb, uint16_t bank, uint16_t address, const char *symbol);
+ #ifndef GB_DISABLE_CHEAT_SEARCH
+-internal bool GB_debugger_evaluate_cheat_filter(GB_gameboy_t *gb, const char *string, bool *result, uint16_t old, uint16_t new);
++internal bool GB_debugger_evaluate_cheat_filter(GB_gameboy_t *gb, const char *string, bool *result, uint16_t old, uint16_t newValue);
+ #endif
+ #endif
+ 
+diff --git a/bsnes/gb/Core/save_state.c b/bsnes/gb/Core/save_state.c
+index cc0330d2d..22be01ced 100644
+--- a/bsnes/gb/Core/save_state.c
++++ b/bsnes/gb/Core/save_state.c
+@@ -6,9 +6,9 @@
+ #include <stdlib.h>
+ 
+ #ifdef GB_BIG_ENDIAN
+-#define BESS_NAME "SameBoy v" GB_VERSION " (Big Endian)"
++#define BESS_NAME "SameBoy (embedded) (Big Endian)"
+ #else
+-#define BESS_NAME "SameBoy v" GB_VERSION
++#define BESS_NAME "SameBoy (embedded)"
+ #endif
+ 
+ _Static_assert((GB_SECTION_OFFSET(core_state) & 7) == 0, "Section core_state is not aligned");
+diff --git a/bsnes/target-libretro/jni/Android.mk b/bsnes/target-libretro/jni/Android.mk
+index da07e7cdb..0ef5cd825 100644
+--- a/bsnes/target-libretro/jni/Android.mk
++++ b/bsnes/target-libretro/jni/Android.mk
+@@ -4,12 +4,7 @@ SRCDIR := $(LOCAL_PATH)/../../..
+ 
+ INCFLAGS  := -I$(SRCDIR) -I$(SRCDIR)/bsnes
+ COREFLAGS := -fomit-frame-pointer -ffast-math -D__LIBRETRO__ $(INCFLAGS)
+-COREFLAGS += -DGB_INTERNAL -DDISABLE_DEBUGGER -DPLATFORM_ANDROID
+-
+-GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
+-ifneq ($(GIT_VERSION)," unknown")
+-  COREFLAGS += -DGIT_VERSION=\"$(GIT_VERSION)\"
+-endif
++COREFLAGS += -DGB_INTERNAL -DDISABLE_DEBUGGER -DGB_DISABLE_DEBUGGER -DGB_DISABLE_CHEATS -DGB_DISABLE_CHEAT_SEARCH -DPLATFORM_ANDROID
+ 
+ SRCFILES := $(SRCDIR)/bsnes/target-libretro/libretro.cpp \
+ 				$(SRCDIR)/bsnes/emulator/emulator.cpp \
+@@ -38,11 +33,11 @@ SRCFILES := $(SRCDIR)/bsnes/target-libretro/libretro.cpp \
+ 				$(SRCDIR)/bsnes/gb/Core/memory.c \
+ 				$(SRCDIR)/bsnes/gb/Core/printer.c \
+ 				$(SRCDIR)/bsnes/gb/Core/random.c \
++				$(SRCDIR)/bsnes/gb/Core/rumble.c \
+ 				$(SRCDIR)/bsnes/gb/Core/rewind.c \
+ 				$(SRCDIR)/bsnes/gb/Core/save_state.c \
+ 				$(SRCDIR)/bsnes/gb/Core/sgb.c \
+ 				$(SRCDIR)/bsnes/gb/Core/sm83_cpu.c \
+-				$(SRCDIR)/bsnes/gb/Core/symbol_hash.c \
+ 				$(SRCDIR)/bsnes/gb/Core/timing.c \
+ 				$(SRCDIR)/bsnes/processor/arm7tdmi/arm7tdmi.cpp \
+ 				$(SRCDIR)/bsnes/processor/spc700/spc700.cpp \
+diff --git a/bsnes/target-libretro/libretro.cpp b/bsnes/target-libretro/libretro.cpp
+index fc7f32118..d6bd92732 100644
+--- a/bsnes/target-libretro/libretro.cpp
++++ b/bsnes/target-libretro/libretro.cpp
+@@ -644,6 +644,11 @@ RETRO_API bool retro_serialize(void *data, size_t size)
+ 	return true;
+ }
+ 
++extern "C" RETRO_API void retro_flush_file_backed_save()
++{
++	program->save();
++}
++
+ RETRO_API bool retro_unserialize(const void *data, size_t size)
+ {
+ 	serializer s(static_cast<const uint8_t *>(data), size);
+@@ -709,6 +714,8 @@ RETRO_API bool retro_load_game(const retro_game_info *game)
+ 	program->base_name = string(game->path);
+ 
+ 	program->load();
++	if (!emulator->loaded())
++		return false;
+ 
+ 	emulator->connect(SuperFamicom::ID::Port::Controller1, SuperFamicom::ID::Device::Gamepad);
+ 	emulator->connect(SuperFamicom::ID::Port::Controller2, SuperFamicom::ID::Device::Gamepad);
+@@ -752,6 +759,8 @@ RETRO_API bool retro_load_game_special(unsigned game_type,
+ 	}
+ 
+ 	program->load();
++	if (!emulator->loaded())
++		return false;
+ 
+ 	emulator->connect(SuperFamicom::ID::Port::Controller1, SuperFamicom::ID::Device::Gamepad);
+ 	emulator->connect(SuperFamicom::ID::Port::Controller2, SuperFamicom::ID::Device::Gamepad);
+diff --git a/bsnes/target-libretro/program.cpp b/bsnes/target-libretro/program.cpp
+index 9a5b12b98..6ff268620 100644
+--- a/bsnes/target-libretro/program.cpp
++++ b/bsnes/target-libretro/program.cpp
+@@ -458,9 +458,9 @@ auto Program::openRomSuperFamicom(string name, vfs::file::mode mode) -> shared_p
+ 
+ 		const char *save = nullptr;
+ 		if (environ_cb && environ_cb(RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY, &save) && save)
+-			save_path = { string(save).transform("\\", "/"), "/", base.trimRight(suffix, 1L), ".srm" };
++			save_path = { string(save).transform("\\", "/"), "/", base.trimRight(suffix, 1L), ".sav" };
+ 		else
+-			save_path = { base_name.trimRight(suffix, 1L), ".srm" };
++			save_path = { base_name.trimRight(suffix, 1L), ".sav" };
+ 
+ 		return vfs::fs::file::open(save_path, mode);
+ 	}
+@@ -483,9 +483,9 @@ auto Program::openRomGameBoy(string name, vfs::file::mode mode) -> shared_pointe
+ 
+ 		const char *save = nullptr;
+ 		if (environ_cb && environ_cb(RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY, &save) && save)
+-			save_path = { string(save).transform("\\", "/"), "/", base.trimRight(suffix, 1L), ".srm" };
++			save_path = { string(save).transform("\\", "/"), "/", base.trimRight(suffix, 1L), ".sav" };
+ 		else
+-			save_path = { base_name.trimRight(suffix, 1L), ".srm" };
++			save_path = { base_name.trimRight(suffix, 1L), ".sav" };
+ 
+ 		return vfs::fs::file::open(save_path, mode);
+ 	}
+diff --git a/nall/traits.hpp b/nall/traits.hpp
+index e2607687d..ab1943ebb 100755
+--- a/nall/traits.hpp
++++ b/nall/traits.hpp
+@@ -41,7 +41,5 @@ namespace nall {
+ 
+ namespace std {
+   #if INTMAX_BITS >= 128
+-  template<> struct is_signed<int128_t> : true_type {};
+-  template<> struct is_unsigned<uint128_t> : true_type {};
+   #endif
+ }

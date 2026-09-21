@@ -1,0 +1,3 @@
+[submodule "bsnes-core"]
+	path = core/bsnes
+	url = https://github.com/bsnes-emu/bsnes.git
