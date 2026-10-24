@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "snapshot": "component-source-2026-10-24",
+  "date": "2026-10-24",
+  "repository": "https://github.com/MateusSouzaAlves/sns-glp",
+  "scope": "Reviewed component-source refresh, not all sources of the combined closed application or a legal compliance certificate.",
+  "supersedes_public_commit": "d9af6ae239ff5e9da9900d53ae885089839d2083",
+  "private_source_base_reference": "351b21363200a74b9ed8e6c46303f02b05ffff84",
+  "artifact_binding": {
+    "status": "NOT_ASSERTED_FOR_HISTORICAL_PLAY_OR_ENTIRE_CURRENT_PRIVATE_WORKTREE",
+    "reason": "Exact files and derivations recorded here; old snapshot tags remain immutable. Complete distributed artifact correspondence is a separate verification."
+  },
+  "verification": {
+    "checks": [
+      "PASS_PATCH_REPLAY_AND_SEVEN_NORMALIZED_DERIVED_SOURCE_HASHES"
+    ],
+    "full_app_build_or_gameplay": false,
+    "save_update_test": false,
+    "legal_combined_work_certificate": false
+  },
+  "upstream_gitlinks": [
+    {
+      "path": "core/bsnes",
+      "commit": "7d5aa1e656b9171524d01b1b22917197d8121cb4"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 172,
+      "sha256": "4c64699bd170ec083315331df912fe72ad72389c684c5fe113a0832a6a231094"
+    },
+    {
+      "path": ".gitmodules",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 90,
+      "sha256": "4408dd2cb96e36cbea6239819144a18116f7cf310883c7e04e089c53e9d2f6cd"
+    },
+    {
+      "path": "NOTICES.md",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 378,
+      "sha256": "76ab44c694922f39052efa44390f8e9a493bae04091291a3e97dc784da3f639e"
+    },
+    {
+      "path": "README.md",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 2659,
+      "sha256": "7fd8fec55c081c074727599eb81e01a424ce2bc9beef443fd09e25aedd6c7365"
+    },
+    {
+      "path": "SOURCE_REFRESH.md",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 1017,
+      "sha256": "a20c590f3efe46ccee69c1631dcf395df52ec65625f3affe8b8d10633b1810f2"
+    },
+    {
+      "path": "patches/0001-emuorbit-android-libretro.patch",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 4975,
+      "sha256": "2de4a93ba60f587a38950f43e5809261758041564144cebbb63fe42514159196"
+    },
+    {
+      "path": "patches/derived-source-hashes.json",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 1954,
+      "sha256": "8aaac2ae84d967d23e1fd0e839a0cff9b8dbabc8ac14d3374e5f4142006a5db0"
+    },
+    {
+      "path": "scripts/build-android-arm64.ps1",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 3638,
+      "sha256": "5b2f3bef2f362c158e67ad199c6435430b3c6f40e97b3d8da5f4df2a0de8231f"
+    },
+    {
+      "path": "scripts/verify-source-snapshot.py",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 3431,
+      "sha256": "854b409cd620c16ef630e8aa22d43fc8cdfa37bded9d28c8c68fd17dba4e9c4b"
+    },
+    {
+      "path": "upstream-notices/SameBoy-LICENSE.txt",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 1495,
+      "sha256": "0cd679b37b3a975fdb95c32783b8e8878bce2a2ec03aa9706318df96cfee475b"
+    }
+  ]
+}

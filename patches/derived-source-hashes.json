@@ -1,0 +1,41 @@
+{
+  "normalization": "UTF-8 text with CRLF normalized to LF",
+  "files": [
+    {
+      "path": "bsnes/gb/Core/debugger.c",
+      "upstream_lf_sha256": "1daeebefc8d4ab84abf5712df4b833e163d5982a9ddf0fc3865737e467a3196a",
+      "derived_lf_sha256": "4aba73f46abf277d6a1bf1944d1281c73e689bff65273f5cd8358a8bae423d86"
+    },
+    {
+      "path": "bsnes/gb/Core/debugger.h",
+      "upstream_lf_sha256": "855d7687e3060e87d6885318460e32b1d98272d1a8ab8d36960b24ba58e5e836",
+      "derived_lf_sha256": "e3a3ebc8f40681e76f96e91b4dbb4301e0682be8df4b6a747ae690f72e4b7a23"
+    },
+    {
+      "path": "bsnes/gb/Core/save_state.c",
+      "upstream_lf_sha256": "f1df185ac5f265de947d3b64c78effc7662f708c049ee9de8c6b31996ae802fb",
+      "derived_lf_sha256": "405a8bd14acd869ca194c19e1581d6290e828beebe04dd321537c31ae4b2007d"
+    },
+    {
+      "path": "bsnes/target-libretro/jni/Android.mk",
+      "upstream_lf_sha256": "532f4914453aa0e8022062bca486c43688f27ded48c0ba17f8380decf3e83f26",
+      "derived_lf_sha256": "fdd74209ca97edabf54a62fa695d3596d90d937024ae729e622ae6267ff5fe4a"
+    },
+    {
+      "path": "bsnes/target-libretro/libretro.cpp",
+      "upstream_lf_sha256": "6dd240bc69891679364614757f3123c5ad38ec991ab05ae65c39dc04277d4dae",
+      "derived_lf_sha256": "4c570fddf0be28681603ec39155d5f30fb2c8ff37f22f35b2b3a555ddbef7476"
+    },
+    {
+      "path": "bsnes/target-libretro/program.cpp",
+      "upstream_lf_sha256": "b4bb62af0666561bfcf82d6c1f5d14919f8ee90770ddfc44b9f1491d98b65079",
+      "derived_lf_sha256": "dcc9fdafd6efee77b0b125c88dffeb7b025e5904a7fa56fb2aa6a992f0e2e8b7"
+    },
+    {
+      "path": "nall/traits.hpp",
+      "upstream_lf_sha256": "a4923aebc16468737455883ad5f102b74d8e5d165de5ea932c46846c9308464d",
+      "derived_lf_sha256": "755b8409ce9b4fe227e10e88c81a0faf4f1834f1ba3c7653b5c42e01276bf64c"
+    }
+  ],
+  "scope": "Replay of current staged inputs; no claim of matching a historical Play artifact or modification to application runtime."
+}

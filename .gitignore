@@ -1,3 +1,15 @@
 /artifacts/
 /.ndk-obj/
 /.ndk-libs/
+
+# Local source qualification output and private material
+/.local/
+/out/
+/build/
+/dist/
+/__pycache__/
+*.pyc
+*.keystore
+*.jks
+*.aab
+*.apk
