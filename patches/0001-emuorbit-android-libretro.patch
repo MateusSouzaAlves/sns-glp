@@ -134,3 +134,15 @@
 +
    #endif
  }
+diff --git a/bsnes/sfc/interface/interface.cpp b/bsnes/sfc/interface/interface.cpp
+--- a/bsnes/sfc/interface/interface.cpp
++++ b/bsnes/sfc/interface/interface.cpp
+@@ -286,6 +286,8 @@
+     bool found = false;
+     for(auto& oldCode : oldCheat.codes) {
+       if(newCode == oldCode) {
++        newCode.enable = oldCode.enable;
++        newCode.restore = oldCode.restore;
+         found = true;
+         break;
+       }

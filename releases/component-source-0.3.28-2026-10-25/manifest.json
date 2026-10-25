@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "snapshot": "component-source-0.3.28-2026-10-25",
+  "date": "2026-10-25",
+  "repository": "https://github.com/MateusSouzaAlves/sns-glp",
+  "scope": "SNES component-only update: preserve retained cheat activation/original bytes; no closed frontend, ROM, BIOS, save or credential included. Not a combined-application license certificate.",
+  "previous_source_commit": "aaab17a94fb32475a565b5a9d13fe423cd456797",
+  "private_source_base_reference": "407d6794601b45c32975c44c82e103662ed0d1cf",
+  "artifact_binding": {
+    "status": "SOURCE_DERIVATIONS_MATCH_CURRENT_NORMAL_CANDIDATE",
+    "version_name": "0.3.28",
+    "version_code": 33,
+    "normal_aab_sha256": "19a0942d81d66ae70998f2257072106fe77d1c87e7480f54bb390b5be9f59c31",
+    "packaged_snes_elf_sha256": "7f8afea2d86457580ecc0d5a33b757f6785106151a5c86532fc39525162c718d",
+    "owner_signed_export_pending": true,
+    "play_upload_or_availability_confirmed": false,
+    "scope": "Component derivations verified; not source completeness of the private frontend or historical Play packages."
+  },
+  "verification": {
+    "checks": [
+      "PASS_EIGHT_NORMALIZED_DERIVED_SOURCE_PATCH_REPLAY",
+      "PASS_EIGHT_DERIVED_HASHES_MATCH_APPLICATION_BUILD_STAGING",
+      "PASS_NORMAL_RELEASE_R8_AND_REQUIRED_GATES",
+      "PASS_REAL_GAME_GAME_GENIE_AND_MULTILINE_PAR_ENABLE_DISABLE",
+      "PASS_PREVIOUS_NORMAL_RELEASE_SNES_MANUAL_AUTO_NATIVE_INSTALL_OVER"
+    ],
+    "full_app_build_or_gameplay": false,
+    "legal_combined_work_certificate": false
+  },
+  "upstream_gitlinks": [
+    {
+      "path": "core/bsnes",
+      "commit": "7d5aa1e656b9171524d01b1b22917197d8121cb4"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 172,
+      "sha256": "4c64699bd170ec083315331df912fe72ad72389c684c5fe113a0832a6a231094"
+    },
+    {
+      "path": ".gitmodules",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 90,
+      "sha256": "4408dd2cb96e36cbea6239819144a18116f7cf310883c7e04e089c53e9d2f6cd"
+    },
+    {
+      "path": "NOTICES.md",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 378,
+      "sha256": "76ab44c694922f39052efa44390f8e9a493bae04091291a3e97dc784da3f639e"
+    },
+    {
+      "path": "README.md",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 2977,
+      "sha256": "d586cabeea97c0b562f878d282c87cca0bd90770966cd913f9264a80ca938f06"
+    },
+    {
+      "path": "SOURCE_REFRESH.md",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 1407,
+      "sha256": "7d3f606f49f680e22a60504341d3095b430d982929f333d72d6f65f35ac35aef"
+    },
+    {
+      "path": "patches/0001-emuorbit-android-libretro.patch",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 5392,
+      "sha256": "307046c3f254bfd9408955b505b9c185aa0b4f5057512a1a1b725e352238271e"
+    },
+    {
+      "path": "patches/derived-source-hashes.json",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 2271,
+      "sha256": "fa25a4881a3b15034389e5fa99aa6939b51b166bf3582f88d6565959069c6d5c"
+    },
+    {
+      "path": "releases/component-source-2026-10-24/manifest.json",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 3211,
+      "sha256": "eaedcca74f31ef8b916624a548f96f5f2d25e1a56f8a19c68c29e1c635d879c0"
+    },
+    {
+      "path": "scripts/build-android-arm64.ps1",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 4319,
+      "sha256": "8923de67fca952d8760e5d6c71a2cb8b405648f9c1b7b4e9c0cbfc4da37c60fd"
+    },
+    {
+      "path": "scripts/verify-source-snapshot.py",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 3438,
+      "sha256": "43500bfdebdab42a542b206b27eb49d8dbff87275a05334775a17de2af6cc0ed"
+    },
+    {
+      "path": "upstream-notices/SameBoy-LICENSE.txt",
+      "normalization": "text-crlf-to-lf",
+      "normalized_bytes": 1495,
+      "sha256": "0cd679b37b3a975fdb95c32783b8e8878bce2a2ec03aa9706318df96cfee475b"
+    }
+  ]
+}

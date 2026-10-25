@@ -12,7 +12,8 @@ aplicativo.
 - `patches/0001-emuorbit-android-libretro.patch`: ajustes reproduzíveis para
   compilar o alvo `bsnes/target-libretro` com Android NDK r29 e os pequenos
   ajustes do core usados pela integração Android: extensão de save `.sav`,
-  flush explícito de save e falha segura quando um jogo não carrega.
+  flush explícito de save, falha segura quando um jogo não carrega e retenção
+  dos metadados de cheats simultâneos para ativação/remoção corretas.
 - `scripts/build-android-arm64.ps1`: script mínimo para gerar
   `libretro.so` para `arm64-v8a` sem modificar o checkout do submódulo.
 
@@ -56,3 +57,7 @@ Play release, and does not certify the closed combined app or publish its
 remaining private host. References above to older artifact hashes or private
 application tags retain historical scope; they are not publicly available
 host-source substitutes. See SOURCE_REFRESH.md and releases/component-source-2026-10-24/manifest.json.
+
+Snapshot preparado da 0.3.28/33: correção limitada aos cheats, sem alteração de
+formato/identidade de saves. Manifesto por artefato e oito hashes derivados
+verificáveis no snapshot correspondente; tags anteriores preservadas.

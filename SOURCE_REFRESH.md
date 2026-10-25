@@ -22,3 +22,7 @@ python -B scripts/verify-source-snapshot.py
 
 Initialize recorded gitlinks recursively for builds. This check verifies files
 and recorded pins; it does not claim a full app build or license certification.
+
+## Candidate 0.3.28/33 — 2026-10-25
+
+The Android patch retains activation and original-byte metadata for unchanged SNES cheats when the libretro list grows. This fixes multiple simultaneous codes and restoration when disabled. It does not alter serialization layout, battery paths, BIOS or upstream revision. Game/application validation is recorded separately; no game files are included.

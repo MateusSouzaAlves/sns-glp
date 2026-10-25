@@ -61,13 +61,23 @@ try {
         throw 'Não foi possível criar o worktree temporário do core.'
     }
 
-    & git -C $worktree apply --check $patch
+    & git -C $worktree apply --check --ignore-space-change $patch
     if ($LASTEXITCODE -ne 0) {
         throw 'O patch Android não corresponde ao commit fixado do core.'
     }
-    & git -C $worktree apply $patch
+    & git -C $worktree apply --ignore-space-change $patch
     if ($LASTEXITCODE -ne 0) {
         throw 'Não foi possível aplicar o patch Android do core.'
+    }
+
+    $derived = Get-Content -LiteralPath (Join-Path $repositoryRoot 'patches/derived-source-hashes.json') -Raw | ConvertFrom-Json
+    foreach ($entry in $derived.files) {
+        $text = [IO.File]::ReadAllText((Join-Path $worktree $entry.path)).Replace("`r`n", "`n")
+        $bytes = [Text.Encoding]::UTF8.GetBytes($text)
+        $sha = [Security.Cryptography.SHA256]::Create()
+        try { $actual = ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-', '').ToLowerInvariant() }
+        finally { $sha.Dispose() }
+        if ($actual -cne $entry.derived_lf_sha256) { throw "Derived source mismatch: $($entry.path)" }
     }
 
     $targetRoot = Join-Path $worktree 'bsnes\target-libretro'

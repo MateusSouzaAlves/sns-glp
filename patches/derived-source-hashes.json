@@ -35,7 +35,12 @@
       "path": "nall/traits.hpp",
       "upstream_lf_sha256": "a4923aebc16468737455883ad5f102b74d8e5d165de5ea932c46846c9308464d",
       "derived_lf_sha256": "755b8409ce9b4fe227e10e88c81a0faf4f1834f1ba3c7653b5c42e01276bf64c"
+    },
+    {
+      "path": "bsnes/sfc/interface/interface.cpp",
+      "upstream_lf_sha256": "197099b8e03928aea8447f9ae20d31aa03d34d2b85ba7a116370bfbcaae1984f",
+      "derived_lf_sha256": "c585da4082fa74eee3788bb47ab5ea03f3e01314e0a75471581e91074c2048d5"
     }
   ],
-  "scope": "Replay of current staged inputs; no claim of matching a historical Play artifact or modification to application runtime."
+  "scope": "Eight staged source derivations for candidate 0.3.28/33, including retained cheat activation/original bytes. Prior tags remain unchanged; not a combined-application legal certificate."
 }
